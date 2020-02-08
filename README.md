@@ -1,4 +1,4 @@
-# GM-Discord-xChat
-Basic Garry's mod Discord xChat. 
+# xChat
+Simple Garry's mod Discord Relay. 
 
 > cURL required.
