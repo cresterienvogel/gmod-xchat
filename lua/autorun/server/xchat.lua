@@ -1,8 +1,9 @@
 xChat = {}
 xChat.Sent = {}
 
-xChat.HandlerURL = "Your web storage UR"
+xChat.HandlerURL = "Your web storage URL"
 xChat.WebhookURL = "Your webhook URL"
+xChat.BotAvatar = "Your preferred bot avatar URL"
 
 util.AddNetworkString("xChat")
 
@@ -13,11 +14,8 @@ xChat.NextTime = xChat.NextTime or SysTime()
 ]]
 
 function xChat.SetAvatar(pl)
-    local avatar = "https://avatarfiles.alphacoders.com/165/thumb-165625.jpg" -- doge
     http.Fetch("http://steamcommunity.com/profiles/" .. pl:SteamID64() .. "?xml=1", function(content)
-        local ret = content:match("<avatarFull><!%[CDATA%[(.-)%]%]></avatarFull>")
-        avatar = ret and ret or avatar
-        pl:SetNWString("AvatarIcon", avatar)
+        pl:SetNWString("AvatarIcon", content:match("<avatarFull><!%[CDATA%[(.-)%]%]></avatarFull>"))
     end)
 end
 
@@ -29,7 +27,7 @@ function xChat.PlayerSend(pl, msg)
     xChat.Send(pl:Name(), msg, pl:GetNWString("AvatarIcon"))
 end
 
-function xChat.Get()
+function xChat.GetMessages()
     http.Fetch(xChat.HandlerURL .. "/xchat_from.php", 
         function(contents)
             local messages = util.JSONToTable(contents)
@@ -86,30 +84,30 @@ end
 
 hook.Add("Think", "xChat", function()
     if SysTime() >= xChat.NextTime then
-        xChat.Get()
+        xChat.GetMessages()
         xChat.NextTime = SysTime() + 1
     end
 end)
 
 hook.Add("PlayerInitialSpawn", "xChat", function(pl)
-    xChat.Send("Server", "> " .. pl:Name() .. " has spawned.", "https://avatarfiles.alphacoders.com/165/thumb-165625.jpg")
+    xChat.Send("Server", "> " .. pl:Name() .. " has spawned.", xChat.BotAvatar)
     xChat.SetAvatar(pl)
 end)
 
 hook.Add("PlayerConnect", "xChat", function(name)
-    xChat.Send("Server", "> " .. name .. " has connected, current online is " .. #player.GetAll() + 1 .. "/" .. game.MaxPlayers() .. " players.", "https://avatarfiles.alphacoders.com/165/thumb-165625.jpg")
+    xChat.Send("Server", "> " .. name .. " has connected, current online is " .. #player.GetAll() + 1 .. "/" .. game.MaxPlayers() .. " players.", xChat.BotAvatar)
 end)
 
 hook.Add("PlayerDisconnected", "xChat", function(pl)
-    xChat.Send("Server", "> " .. pl:Name() .. " has disconnected, current online is " .. #player.GetAll() - 1 .. "/" .. game.MaxPlayers() .. " players.", "https://avatarfiles.alphacoders.com/165/thumb-165625.jpg")
+    xChat.Send("Server", "> " .. pl:Name() .. " has disconnected, current online is " .. #player.GetAll() - 1 .. "/" .. game.MaxPlayers() .. " players.", xChat.BotAvatar)
 end)
 
 hook.Add("ShutDown", "xChat", function(pl)
-    xChat.Send("Server", "> Server is going offline.", "https://avatarfiles.alphacoders.com/165/thumb-165625.jpg")
+    xChat.Send("Server", "> Server is going offline.", xChat.BotAvatar)
 end)
 
 hook.Add("Initialize", "xChat", function(pl)
-    xChat.Send("Server", "> Server is going online. Public IP is " .. game.GetIPAddress() .. ".", "https://avatarfiles.alphacoders.com/165/thumb-165625.jpg")
+    xChat.Send("Server", "> Server is going online. Public IP is " .. game.GetIPAddress() .. ".", xChat.BotAvatar)
 end)
 
 hook.Add("PlayerSay", "xChat", function(pl, msg, team)
