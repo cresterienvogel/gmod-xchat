@@ -35,21 +35,21 @@ function xChat.GetMessages()
                 return
             end
 
-            if messages.message == "You are being rate limited." then
-                xChat.NextTime = SysTime() + messages.retry_after
+            if messages["message"] == "You are being rate limited." then
+                xChat.NextTime = SysTime() + messages["retry_after"]
                 return
             end
 
             for _, msg in pairs(messages) do
-                if xChat.Sent[msg.id] then
+                if xChat.Sent[msg["id"]] then
                     continue
                 end
 
-                if msg.author.bot or msg.content == "" then
+                if msg["author"]["bot"] or msg["content"] == "" then
                     continue
                 end
 
-                local msg_time = msg.timestamp
+                local msg_time = msg["timestamp"]
                 msg_time = string.Explode("T", msg_time)
                 msg_time = string.Explode(".", msg_time[2])
                 msg_time = msg_time[1]
@@ -68,11 +68,11 @@ function xChat.GetMessages()
                 end
 
                 net.Start("xChat")
-                    net.WriteString(msg.author.username)
-                    net.WriteString(msg.content)
+                    net.WriteString(msg["author"]["username"])
+                    net.WriteString(msg["content"])
                 net.Broadcast()
 
-                xChat.Sent[msg.id] = true
+                xChat.Sent[msg["id"]] = true
             end
         end
     )
@@ -94,19 +94,11 @@ hook.Add("PlayerInitialSpawn", "xChat", function(pl)
     xChat.SetAvatar(pl)
 end)
 
-hook.Add("PlayerConnect", "xChat", function(name)
-    xChat.Send("Server", "> " .. name .. " has connected, current online is " .. #player.GetAll() + 1 .. "/" .. game.MaxPlayers() .. " players.", xChat.BotAvatar)
-end)
-
-hook.Add("PlayerDisconnected", "xChat", function(pl)
-    xChat.Send("Server", "> " .. pl:Name() .. " has disconnected, current online is " .. #player.GetAll() - 1 .. "/" .. game.MaxPlayers() .. " players.", xChat.BotAvatar)
-end)
-
-hook.Add("ShutDown", "xChat", function(pl)
+hook.Add("ShutDown", "xChat", function()
     xChat.Send("Server", "> Server is going offline.", xChat.BotAvatar)
 end)
 
-hook.Add("Initialize", "xChat", function(pl)
+hook.Add("InitPostEntity", "xChat", function()
     xChat.Send("Server", "> Server is going online. Public IP is " .. game.GetIPAddress() .. ".", xChat.BotAvatar)
 end)
 
@@ -114,4 +106,18 @@ hook.Add("PlayerSay", "xChat", function(pl, msg, team)
     if not team and not string.find(msg, "@") then
         xChat.PlayerSend(pl, msg)
     end
+end)
+
+--[[
+    Game events
+]]
+
+gameevent.Listen("player_connect")
+hook.Add("player_connect", "AnnounceConnection", function(data)
+    xChat.Send("Server", "> " .. data.name .. " (" .. data.networkid .. ") has connected.", xChat.BotAvatar)
+end)
+
+gameevent.Listen("player_disconnect")
+hook.Add("player_disconnect", "xChat", function(data)
+    xChat.Send("Server", "> " .. data.name .. " (" .. data.networkid .. ") has disconnected: " .. data.reason, xChat.BotAvatar)
 end)
