@@ -1,4 +1,4 @@
-xChat = {}
+xChat = xChat or {}
 xChat.Sent = {}
 
 xChat.HandlerURL = "Your web storage URL"
@@ -8,6 +8,14 @@ xChat.BotAvatar = "Your preferred bot avatar URL"
 util.AddNetworkString("xChat")
 
 xChat.NextTime = xChat.NextTime or SysTime()
+
+xChat.Started = xChat.Started or false
+timer.Simple(0, function()
+    if not xChat.Started then
+        xChat.Started = true
+        xChat.Send("Server", "> Server is going online. Public IP is " .. game.GetIPAddress() .. ".", xChat.BotAvatar)
+    end
+end)
 
 --[[
     Funcs
@@ -96,10 +104,6 @@ end)
 
 hook.Add("ShutDown", "xChat", function()
     xChat.Send("Server", "> Server is going offline.", xChat.BotAvatar)
-end)
-
-hook.Add("InitPostEntity", "xChat", function()
-    xChat.Send("Server", "> Server is going online. Public IP is " .. game.GetIPAddress() .. ".", xChat.BotAvatar)
 end)
 
 hook.Add("PlayerSay", "xChat", function(pl, msg, team)
