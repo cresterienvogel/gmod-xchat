@@ -80,6 +80,10 @@ function xChat.GetMessages()
                     net.WriteString(msg["content"])
                 net.Broadcast()
 
+				if string.find(msg["content"], ".status") then
+					xChat.Send("Server Status", "> " .. #player.GetAll() .. "/" .. game.MaxPlayers() .. " players online on " .. game.GetMap() .. ".", xChat.BotAvatar)
+				end
+
                 xChat.Sent[msg["id"]] = true
             end
         end
