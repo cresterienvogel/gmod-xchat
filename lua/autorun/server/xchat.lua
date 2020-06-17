@@ -83,10 +83,10 @@ function xChat.GetMessages()
                 if string.find(msg["content"], ".status") then
                     local players = ""
                     for _, pl in pairs(player.GetAll()) do
-                        players = players .. "\n    " .. pl:Name() .. " (" .. pl:SteamID() .. ")"
+                        players = players .. "\n    " .. pl:Name() .. " `(" .. pl:SteamID() .. ")`"
                     end
                 
-                    xChat.Send("Server Status", "> Current server statistic:\n\n⚡ Online: " .. #player.GetAll() .. "/" .. game.MaxPlayers() .. " players\n🎪 Map: " .. game.GetMap() .. "\n📁 Players:" .. players, xChat.BotAvatar)
+                    xChat.Send("Server Status", "> Current server statistic:\n\n⚡ Online: `" .. #player.GetAll() .. "/" .. game.MaxPlayers() .. "` players\n🎪 Map: `" .. game.GetMap() .. "`\n📁 Players:" .. players, xChat.BotAvatar)
                 end
 
                 xChat.Sent[msg["id"]] = true
