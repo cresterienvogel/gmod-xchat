@@ -85,7 +85,10 @@ function xChat.GetMessages()
                     for _, pl in pairs(player.GetAll()) do
                         players = players .. "\n    " .. pl:Name() .. " `(" .. pl:SteamID() .. ")`"
                     end
-                    players = (players == "") and " `No players on the server`"
+                    
+					if players == "" then
+						players = " `No players on the server`"
+					end
                 
                     xChat.Send("Server Status", "> Current server statistic:\n\n⚡ Online: `" .. #player.GetAll() .. "/" .. game.MaxPlayers() .. "` players\n🎪 Map: `" .. game.GetMap() .. "`\n📁 Players:" .. players, xChat.BotAvatar)
                 end
