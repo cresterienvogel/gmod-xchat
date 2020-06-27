@@ -51,7 +51,7 @@ if SERVER then
 	
 					for command, func in pairs(xChat.Commands) do
 						if string.find(msg["content"], xChat.Config.Command .. command) then
-							func()
+							func(msg["author"]["username"] .. "#" .. msg["author"]["discriminator"], msg["content"])
 							break
 						end
 					end
