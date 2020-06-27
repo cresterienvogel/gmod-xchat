@@ -21,12 +21,7 @@ end)
 if xChat.Config.DefaultChatMessaging then
 	hook.Add("PlayerSay", "xChat", function(pl, msg, team)
 		if not team and not string.find(msg, "@") then
-			http.Post(xChat.Config.Handler .. "message.php", {
-				webhook = xChat.Config.Webhook, 
-				user_name = pl:Name(), 
-				user_pic = pl:GetNWString("xChat Avatar"),
-				user_message = msg
-			})
+			xChat.PlayerSend(pl, msg)
 		end
 	end)
 end
