@@ -1,6 +1,6 @@
 xChat.Commands = xChat.Commands or {}
 
-xChat.Commands["status"] = function()
+xChat.Commands["status"] = function(username, message)
 	http.Post(xChat.Config.Handler .. "status.php", {
 		webhook = xChat.Config.Webhook, 
 		server_name = GetHostName(),
