@@ -10,3 +10,12 @@ function xChat.GetPlayers()
 
 	return players
 end
+
+function xChat.PlayerSend(pl, msg)
+    http.Post(xChat.Config.Handler .. "message.php", {
+        webhook = xChat.Config.Webhook, 
+        user_name = pl:Name(), 
+        user_pic = pl:GetNWString("xChat Avatar"),
+        user_message = msg
+    })
+end
