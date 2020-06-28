@@ -19,3 +19,11 @@ function xChat.PlayerSend(pl, msg)
         user_message = msg
     })
 end
+
+function xChat.Send(msg, clr)
+    http.Post(xChat.Config.Handler .. "custom.php", {
+        webhook = xChat.Config.Webhook, 
+        message = msg, 
+        color = clr or "ff957e"
+    })
+end
