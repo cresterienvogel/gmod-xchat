@@ -18,6 +18,10 @@ if SERVER then
 				end
 	
 				for _, msg in pairs(messages) do
+					if not msg["id"] then
+						continue
+					end
+					
 					if xChat.Sent[msg["id"]] then
 						continue
 					end
