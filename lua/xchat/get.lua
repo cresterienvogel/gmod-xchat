@@ -13,7 +13,7 @@ if SERVER then
 				end
 	
 				if messages["message"] == "You are being rate limited." then
-					xChat.NextTime = SysTime() + messages["retry_after"]
+					xChat.NextTime = SysTime() + (messages["retry_after"] / 1000)
 					return
 				end
 	
