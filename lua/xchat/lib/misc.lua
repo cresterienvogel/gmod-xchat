@@ -4,7 +4,7 @@ local webhook = cfg.Webhook
 local secret = cfg.Secret
 
 function xChat.PlayerSend(pl, msg)
-    http.Post(handler .. "message.php", {
+    http.Post(handler .. "lib/message.php", {
         webhook = webhook, 
         user_name = pl:Name(), 
         user_pic = pl:GetNWString("xChat Avatar"),
@@ -14,7 +14,7 @@ function xChat.PlayerSend(pl, msg)
 end
 
 function xChat.Send(msg, clr)
-    http.Post(handler .. "custom.php", {
+    http.Post(handler .. "lib/custom.php", {
         webhook = webhook, 
         message = msg, 
         color = clr or "ff957e",

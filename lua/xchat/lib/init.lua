@@ -14,7 +14,7 @@ hook.Add("PlayerInitialSpawn", "xChat", function(pl)
 	local profile_url = "https://steamcommunity.com/profiles/" .. pl:SteamID64()
 	http.Fetch(profile_url .. "?xml=1", function(content)
 		pl:SetNWString("xChat Avatar", content:match("<avatarFull><!%[CDATA%[(.-)%]%]></avatarFull>"))
-		http.Post(handler .. "spawn.php", {
+		http.Post(handler .. "lib/spawn.php", {
 			webhook = webhook, 
 			user_name = pl:Name() .. " (" .. pl:SteamID() .. ")", 
 			user_pic = pl:GetNWString("xChat Avatar"),
@@ -36,7 +36,7 @@ gameevent.Listen("player_connect")
 hook.Add("player_connect", "xChat", function(data)
 	local profile_url = "https://steamcommunity.com/profiles/" .. util.SteamIDTo64(data.networkid)
 	http.Fetch(profile_url .. "?xml=1", function(content)
-		http.Post(handler .. "connect.php", {
+		http.Post(handler .. "lib/connect.php", {
 			webhook = webhook, 
 			user_name = data.name .. " (" .. data.networkid .. ")", 
 			user_pic = content:match("<avatarFull><!%[CDATA%[(.-)%]%]></avatarFull>"),
@@ -50,7 +50,7 @@ gameevent.Listen("player_disconnect")
 hook.Add("player_disconnect", "xChat", function(data)
 	local profile_url = "https://steamcommunity.com/profiles/" .. util.SteamIDTo64(data.networkid)
 	http.Fetch(profile_url .. "?xml=1", function(content)
-		http.Post(handler .. "disconnect.php", {
+		http.Post(handler .. "lib/disconnect.php", {
 			webhook = webhook, 
 			user_name = data.name .. " (" .. data.networkid .. ")", 
 			user_pic = content:match("<avatarFull><!%[CDATA%[(.-)%]%]></avatarFull>"),

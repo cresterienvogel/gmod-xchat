@@ -17,7 +17,7 @@ local function GetPlayers()
 end
 
 xChat.Commands["status"] = function(username, message)
-	http.Post(handler .. "status.php", {
+	http.Post(handler .. "lib/status.php", {
 		webhook = webhook, 
 		server_name = GetHostName(),
 		server_ip = game.GetIPAddress(),
