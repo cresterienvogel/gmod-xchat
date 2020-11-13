@@ -10,7 +10,7 @@ Simple Garry's mod Discord Relay.
 ### xchat/cfg.php
 ```Set up a secret key and a bot token```
 ### xchat/channels/<YOUR CHANNEL NAME/base>.php
-```Set up a channel id, create another files if you would like to use multiple channels on different servers```
+```Set up a channel id```
 
 # Garry's mod Configuration 
 ### addons/xchat/lua/xchat/config.lua
