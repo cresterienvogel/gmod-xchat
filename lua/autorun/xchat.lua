@@ -1,6 +1,6 @@
 xChat = xChat or {}
 
-AddCSLuaFile("xchat/chatdraw.lua")
+AddCSLuaFile("xchat/lib/chatdraw.lua")
 if SERVER then
 	include("xchat/config.lua")
 	include("xchat/commands.lua")
@@ -8,5 +8,5 @@ if SERVER then
 	include("xchat/lib/get.lua")
 	include("xchat/lib/init.lua")
 else
-	include("xchat/chatdraw.lua")
+	include("xchat/lib/chatdraw.lua")
 end
