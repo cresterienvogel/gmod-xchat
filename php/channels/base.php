@@ -1,6 +1,7 @@
 <?php
-	$channel_id = "Channel ID";
-	$bot_token = "Bot Token";
+	include_once("../cfg.php");
+
+	$channel_id = "<Channel ID>";
 
 	$ch = curl_init('https://discordapp.com/api/channels/' . $channel_id . '/messages?limit=3');
    	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bot ' . $bot_token));
