@@ -8,10 +8,10 @@ Simple Garry's mod Discord Relay.
 
 # Web Configuration
 ### xchat/cfg.php
-* Set up a secret key and a bot token
+```Set up a secret key and a bot token```
 ### xchat/channels/<YOUR CHANNEL NAME/base>.php
-* Set up a channel id, create another files if you would like to use multiple channels on different servers
+```Set up a channel id, create another files if you would like to use multiple channels on different servers```
 
 # Garry's mod Configuration 
 ### addons/xchat/lua/xchat/config.lua
-* Set up a URL address to the Web server, Web hook URL, Channel id
+```Set up a URL address to the Web server, Web hook URL, Channel id```
