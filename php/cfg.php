@@ -1,6 +1,7 @@
 <?php
 	$cfg_secret = "8TKJPfLp";
 	$bot_token = "<Bot Token>";
+	$channel_id = "<Channel ID>";
 
 	$clr_connect = hexdec("48a072");
 	$clr_disconnect = hexdec("b41418");
