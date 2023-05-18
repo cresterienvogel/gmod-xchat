@@ -2,6 +2,9 @@
 	$cfg_secret = "8TKJPfLp";
 	$bot_token = "<Bot Token>";
 	$channel_id = "<Channel ID>";
+	$only_gmod_request = true;
+	#polish or english
+	$language = "polish";
 
 	$clr_connect = hexdec("48a072");
 	$clr_disconnect = hexdec("b41418");
