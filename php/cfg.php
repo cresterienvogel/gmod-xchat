@@ -3,7 +3,7 @@
 	$bot_token = "<Bot Token>";
 	$channel_id = "<Channel ID>";
 	$only_gmod_request = true;
-	#polish or english
+	#polish, english or german
 	$language = "english";
 
 	$clr_connect = hexdec("48a072");
