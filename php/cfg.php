@@ -1,7 +1,6 @@
 <?php
 	$cfg_secret = "8TKJPfLp";
 	$bot_token = "<Bot Token>";
-	$channel_id = "<Channel ID>";
 	$only_gmod_request = true;
 	#polish, english or german
 	$language = "english";
